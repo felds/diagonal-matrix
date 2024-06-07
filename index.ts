@@ -7,21 +7,15 @@
  * @param cols The width of the matrix
  * @param rows The height of the matrix
  * @param mapfn A transformer function that receives the order of the cell and
- * should return its final value.
+ * should return its final value
+ * @throws {RangeError} If the cols or rows are smaller than 1
  */
 export function createPositiveDiagonalOrderMatrix<T = number>(
     cols: number,
     rows: number,
     mapfn?: (index: number) => T,
 ): T[][] {
-    if (!cols || !rows)
-        throw RangeError(
-            `Matrices should have positive lengths. ${cols}×${rows} given.`,
-        )
-
-    const matrix = Array.from({ length: rows }, () =>
-        Array.from<T>({ length: cols }),
-    )
+    const matrix = createMatrix<T>(cols, rows)
 
     const numDiagonals = cols + rows - 1
     for (let d = 0, num = 0; d < numDiagonals; d++) {
@@ -48,21 +42,15 @@ export function createPositiveDiagonalOrderMatrix<T = number>(
  * @param cols The width of the matrix
  * @param rows The height of the matrix
  * @param mapfn A transformer function that receives the order of the cell and
- * should return its final value.
+ * should return its final value
+ * @throws {RangeError} If the cols or rows are smaller than 1
  */
 export function createNegativeDiagonalOrderMatrix<T = number>(
     cols: number,
     rows: number,
     mapfn?: (index: number) => T,
 ): T[][] {
-    if (!cols || !rows)
-        throw RangeError(
-            `Matrices should have positive lengths. ${cols}×${rows} given.`,
-        )
-
-    const matrix = Array.from({ length: rows }, () =>
-        Array.from<T>({ length: cols }),
-    )
+    const matrix = createMatrix<T>(cols, rows)
 
     const numDiagonals = cols + rows - 1
     for (let d = 0, num = 0; d < numDiagonals; d++) {
@@ -78,4 +66,22 @@ export function createNegativeDiagonalOrderMatrix<T = number>(
     }
 
     return matrix
+}
+
+/**
+ * Create an empty matrix.
+ *
+ * Check the [tests](./index.test.ts) to see some examples.
+ *
+ * @param cols The width of the matrix
+ * @param rows The height of the matrix
+ * @throws {RangeError} If the cols or rows are smaller than 1
+ */
+function createMatrix<T>(cols: number, rows: number) {
+    if (cols < 1 || rows < 1)
+        throw RangeError(
+            `Matrices should have positive lengths. ${cols}×${rows} given.`,
+        )
+
+    return Array.from({ length: rows }, () => Array.from<T>({ length: cols }))
 }

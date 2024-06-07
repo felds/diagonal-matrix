@@ -6,6 +6,8 @@ describe("createPositiveDiagonalOrderMatrix", () => {
         expect(() => createPositiveDiagonalOrderMatrix(0, 0)).toThrowError(RangeError)
         expect(() => createPositiveDiagonalOrderMatrix(4, 0)).toThrowError(RangeError)
         expect(() => createPositiveDiagonalOrderMatrix(0, 4)).toThrowError(RangeError)
+        expect(() => createPositiveDiagonalOrderMatrix(-1, 3)).toThrowError(RangeError)
+        expect(() => createPositiveDiagonalOrderMatrix(1, -3)).toThrowError(RangeError)
     })
 
     test("Square matrix", () => {
