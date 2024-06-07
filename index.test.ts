@@ -19,6 +19,17 @@ describe("createPositiveDiagonalOrderMatrix", () => {
         ])
     })
 
+    test("With mapfn", () => {
+        const values = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        const actual = createPositiveDiagonalOrderMatrix(3, 3, (idx) => values[idx])
+        const expected = [
+            [ "A", "C", "F" ],
+            [ "B", "E", "H" ],
+            [ "D", "G", "I" ],
+        ]
+        expect(actual).toEqual(expected)
+    })
+
     test("Rectangular matrix", () => {
         expect(createPositiveDiagonalOrderMatrix(4, 3)).toEqual([
             [0,  2,  5,  8],
@@ -55,5 +66,16 @@ describe("createNegativeDiagonalMatricex", () => {
             [1,  4,  8],
             [0,  2,  5],
         ])
+    })
+
+    test("With mapfn", () => {
+        const values = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        const actual = createNegativeDiagonalOrderMatrix(3, 3, (idx) => values[idx])
+        const expected = [
+            [ "D", "G", "I" ],
+            [ "B", "E", "H" ],
+            [ "A", "C", "F" ],
+        ]
+        expect(actual).toEqual(expected)
     })
 })

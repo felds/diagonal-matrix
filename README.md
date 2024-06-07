@@ -16,10 +16,13 @@ const fruits = [
     "8 - Berry",
     "9 - Guava",
 ]
-const sortMask = createPositiveDiagonalOrderMatrix(3, 3)
-const sortedFruits = sortMask.map((row) => row.map((i) => fruits[i]))
+const fruitsMatrix = createPositiveDiagonalOrderMatrix(
+    3, // columns
+    3, // rows
+    (i) => fruits[i], // a mapper function to convert the values from ordinal
+)
 
-// outputs:
+// returns:
 // [
 //      [ "1 - Apple", "3 - Mango", "6 - Melon" ]
 //      [ "2 - Grape", "5 - Peach", "8 - Berry" ]

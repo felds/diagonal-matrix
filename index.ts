@@ -6,18 +6,21 @@
  *
  * @param cols The width of the matrix
  * @param rows The height of the matrix
+ * @param mapfn A transformer function that receives the order of the cell and
+ * should return its final value.
  */
-export function createPositiveDiagonalOrderMatrix(
+export function createPositiveDiagonalOrderMatrix<T = number>(
     cols: number,
     rows: number,
-): number[][] {
+    mapfn?: (index: number) => T,
+): T[][] {
     if (!cols || !rows)
         throw RangeError(
             `Matrices should have positive lengths. ${cols}×${rows} given.`,
         )
 
-    const matrix: number[][] = Array.from({ length: rows }, () =>
-        Array.from({ length: cols }),
+    const matrix = Array.from({ length: rows }, () =>
+        Array.from<T>({ length: cols }),
     )
 
     const numDiagonals = cols + rows - 1
@@ -28,7 +31,7 @@ export function createPositiveDiagonalOrderMatrix(
 
         // fill the cells
         while (row >= 0 && row < rows && col >= 0 && col < cols) {
-            matrix[row]![col] = num
+            matrix[row]![col] = mapfn ? mapfn(num) : (num as any as T)
             row--, col++, num++
         }
     }
@@ -44,18 +47,21 @@ export function createPositiveDiagonalOrderMatrix(
  *
  * @param cols The width of the matrix
  * @param rows The height of the matrix
+ * @param mapfn A transformer function that receives the order of the cell and
+ * should return its final value.
  */
-export function createNegativeDiagonalOrderMatrix(
+export function createNegativeDiagonalOrderMatrix<T = number>(
     cols: number,
     rows: number,
-): number[][] {
+    mapfn?: (index: number) => T,
+): T[][] {
     if (!cols || !rows)
         throw RangeError(
             `Matrices should have positive lengths. ${cols}×${rows} given.`,
         )
 
-    const matrix: number[][] = Array.from({ length: rows }, () =>
-        Array.from({ length: cols }),
+    const matrix = Array.from({ length: rows }, () =>
+        Array.from<T>({ length: cols }),
     )
 
     const numDiagonals = cols + rows - 1
@@ -66,7 +72,7 @@ export function createNegativeDiagonalOrderMatrix(
 
         // fill the cells
         while (row >= 0 && row < rows && col >= 0 && col < cols) {
-            matrix[row]![col] = num
+            matrix[row]![col] = mapfn ? mapfn(num) : (num as any as T)
             row++, col++, num++
         }
     }
