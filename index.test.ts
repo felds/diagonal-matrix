@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { createPositiveDiagonalOrderMatrix } from "."
+import { createNegativeDiagonalOrderMatrix, createPositiveDiagonalOrderMatrix } from "."
 
 describe("createPositiveDiagonalOrderMatrix", () => {
     test("Empty zero-length matrices", () => {
@@ -30,6 +30,30 @@ describe("createPositiveDiagonalOrderMatrix", () => {
             [1,  4,  8],
             [3,  7, 10],
             [6,  9, 11],
+        ])
+    })
+})
+
+describe("createNegativeDiagonalMatricex", () => {
+    test("Square matrix", () => {
+        expect(createNegativeDiagonalOrderMatrix(3, 3)).toEqual([
+            [3, 6, 8],
+            [1, 4, 7],
+            [0, 2, 5],
+        ])
+    })
+
+    test("Rectangular matrix", () => {
+        expect(createNegativeDiagonalOrderMatrix(4, 3)).toEqual([
+            [3,  6,  9,  11],
+            [1,  4,  7,  10],
+            [0,  2,  5,  8],
+        ])
+        expect(createNegativeDiagonalOrderMatrix(3, 4)).toEqual([
+            [6,  9, 11],
+            [3,  7, 10],
+            [1,  4,  8],
+            [0,  2,  5],
         ])
     })
 })
